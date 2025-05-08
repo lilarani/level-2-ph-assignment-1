@@ -1,5 +1,3 @@
-// problem-01
-
 function formatString(input: string, toUpper?: boolean): string {
   if (toUpper === true) {
     return input.toUpperCase();
@@ -14,7 +12,6 @@ formatString('Hello');
 formatString('Hello', true);
 formatString('Hello', false);
 
-// problem-02
 const books = [
   { title: 'Book A', rating: 4.5 },
   { title: 'Book B', rating: 3.2 },
@@ -29,15 +26,12 @@ function filterByRating(
 
 filterByRating(books);
 
-// problem-03
 function concatenateArrays<T>(...arrays: T[][]): T[] {
   return arrays.reduce((acc, current) => acc.concat(current));
 }
 
 concatenateArrays(['a', 'b'], ['c']);
 concatenateArrays([1, 2], [3, 4], [5]);
-
-// problem-04
 
 class Vehicle {
   private make: string;
@@ -69,7 +63,6 @@ const myCar = new Car('Toyota', 2020, 'Corolla');
 myCar.getInfo();
 myCar.getModel();
 
-// problem-05
 function processValue(value: string | number): number {
   if (typeof value === 'number') {
     return value * 2;
@@ -81,14 +74,20 @@ function processValue(value: string | number): number {
 processValue('hello');
 processValue(10);
 
-// problem-06
-
 interface Product {
   name: string;
   price: number;
 }
 
-function getMostExpensiveProduct(products: Product[]): Product | null {}
+function getMostExpensiveProduct(products: Product[]): Product | null {
+  if (products.length === 0) {
+    return null;
+  } else {
+    return products.reduce((maxProduct, curr) =>
+      curr.price > maxProduct.price ? curr : maxProduct
+    );
+  }
+}
 
 const products = [
   { name: 'Pen', price: 10 },
@@ -96,4 +95,40 @@ const products = [
   { name: 'Bag', price: 50 },
 ];
 
-console.log(getMostExpensiveProduct(products));
+getMostExpensiveProduct(products);
+
+enum Day {
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+  Sunday,
+}
+
+function getDayType(day: Day): string {
+  if (day === Day.Sunday || day === Day.Saturday) {
+    return 'Weekend';
+  } else {
+    return 'Weekday';
+  }
+}
+
+getDayType(Day.Monday);
+getDayType(Day.Sunday);
+
+async function squareAsync(n: number): Promise<number> {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (typeof n === 'number') {
+        resolve(n * n);
+      } else {
+        reject('Negative number not allowed');
+      }
+    }, 1000);
+  });
+}
+
+squareAsync(4).then(console.log);
+squareAsync(-3).catch(console.error);
